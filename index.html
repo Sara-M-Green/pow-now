@@ -13,17 +13,14 @@
     <h1>Pow Now</h1>
     <form>
         <label for="outbound-airport">Select Outbound Airport: </label>
-        <select name="outbound-airport" required>
+        <select name="outbound-airport" id="outbound-airport" required>
         <option value="LAX">Los Angeles (LAX)</option>
         <option value="DEN">Denver (DEN)</option>
         <option value="SLC">Salt Lake City (SLC)</option>
         </select>
 
-        <label for="max-budget">Max Budget: $</label>
-        <input type="number" name="max-budget" step="0.01">
-
         <label for="return-date">Return Date: </label>
-        <input type="date" name="return-date">
+        <input type="date" name="return-date" id="inbound-date">
         <input type="submit">
     </form>
 </div>
