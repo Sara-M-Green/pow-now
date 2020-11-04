@@ -1,70 +1,50 @@
+//api key for world weather online
 const apiKey = 'cadbd16055d546e9afd42652200211';
 
-// const resortList = [ 
-//     {
-//         resort: alta,
-//         airport: SLC
-//     },
-//     {
-//         resort: aspen,
-//         airport: ASE
-//     },
-//     {
-//         resort: beaver-creek,
-//         airport: DEN
-//     },
-//     {
-//         resort: big-sky,
-//         airport: BZN
-//     },
-//     {
-//         resort: brekenridge,
-//         airport: DEN
-//     },
-//     {
-//         resort: crested-butte,
-//         airport: GUC
-//     },
-//     {
-//         resort: jackson-hole,
-//         airport: JAC
-//     },
-//     {
-//         resort: mammoth,
-//         airport: MMH
-//     },
-//     {
-//         resort: park-city,
-//         airport: SLC
-//     },
-//     {
-//         resort: snowbird,
-//         airport: SLC
-//     },
-//     {
-//         resort: squaw-valley,
-//         airport: RNO
-//     },
-//     {
-//         resort: steamboat-springs,
-//         airport: HDN
-//     },
-//     {
-//         resort: sun-valley,
-//         airport: SUN
-//     },
-//     {
-//         resort: telluride,
-//         airport: MJT
-//     },
-//     {
-//         resort: vail,
-//         airport: EJE
-//     },
-// ]
+//list of resorts to search snowfall data
+const resortList = [
+    {
+        resort: 'Mammoth Mountain',
+        searchQuery: 'mammoth+lakes',
+        airport: 'MMH'
+    },
+    {
+        resort: 'Telluride',
+        searchQuery: 'telluride',
+        airport: 'MJT'
+    },
+    {
+        resort: 'Squaw Valley/Alipine Meadows',
+        searchQuery: 'olympic+valley',
+        airport: 'RNO'
+    },
+    {
+        resort: 'Big Sky',
+        searchQuery: 'big+sky',
+        airport: 'BZN'
+    },
+    {
+        resort: 'Snowbird',
+        searchQuery: 'salt+lake+city',
+        airport: 'SLC'
+    },
+    {
+        resort: 'Sun Valley',
+        searchQuery: 'sun+valley',
+        airport: 'SUN'
+    }
+];
 
-function findResort(){
-    const url =  "https://api.worldweatheronline.com/premium/v1/ski.ashx?key=cadbd16055d546e9afd42652200211&q=mammoth+lakes&includeLocation=yes&format=json"
+//loops through resort list and finds weather data for each resort
+function getWeatherData(resortList){
+    for (let i = 0; i < resortList.length; i++){
+        findWeather(resortList[i].searchQuery)
+    }
+}
+
+//makes a request to world wide weather API
+function findWeather(city){
+    const url =  `https://api.worldweatheronline.com/premium/v1/ski.ashx?key=${apiKey}&q=${city}&includeLocation=yes&format=json`
     fetch(url)
         .then(response => {
             if (response.ok){
@@ -72,18 +52,28 @@ function findResort(){
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => console.log(responseJson))
+        .then(responseJson => displayResults(responseJson));
 }
 
-function watchForm(){
-    $('form').submit(event => {
-        event.preventDefault();
-        findResort();
-        findFlights();
-    });
-}
+function displayResults(responseJson){
+    console.log(responseJson);
+    $('#results-list').empty();
+    let snowIn = (`${responseJson.data.weather[0].totalSnowfall_cm}`*0.39370079);
+    for(let i = 0; i < resortList.length; i++){
+        $('#results-list').append(
+            `<li>
+                <h3>${resortList[i].resort}</h3>
+                <ul>
+                    <li>Total Snowfall: ${snowIn} in</li>
+                    <li>Flight Price: $</li>
+                </ul>
+            </li>`
+        );     
+    };
+       
 
-$(watchForm);
+    $('#results').removeClass('hidden');
+}
 
 function findFlights(){
     let outbound = $('#outbound-airport').val();
@@ -91,8 +81,7 @@ function findFlights(){
     outboundDate = createTomorrowsDate();
     inboundDate = $('#inbound-date').val();
 
-
-    var url = `https://rapidapi.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/${outbound}-sky/${inbound}-sky/${outboundDate}?inboundpartialdate=${inboundDate}`
+    let url = `https://rapidapi.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/${outbound}-sky/${inbound}-sky/${outboundDate}?inboundpartialdate=${inboundDate}`
 
     fetch(url, {
         "method": "GET",
@@ -118,17 +107,22 @@ function createTomorrowsDate(){
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate() + 1;
-
     if(month < 10){
         month = '0' + month;
     }
-
     if (day < 10){
         day = '0' + day;
     }
-
     let tomorrow = `${year}-${month}-${day}`;
     return tomorrow;
-
 }
 
+function watchForm(){
+    $('form').submit(event => {
+        event.preventDefault();
+        getWeatherData(resortList);
+        findFlights();
+    });
+}
+
+$(watchForm);

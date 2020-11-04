@@ -5,3 +5,7 @@
 .wrapper {
     margin: 15px;
 }
+
+.hidden {
+    display: none;
+}
