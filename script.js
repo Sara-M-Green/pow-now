@@ -65,7 +65,8 @@ function displayResults(responseJson){
                 <h3>${resortList[i].resort}</h3>
                 <ul>
                     <li>Current Snowfall: ${snowIn} in</li>
-                    <li>Flight Price: $</li>
+                </ul>
+                <ul class="flightPrice">
                 </ul>
             </li>`
         );     
@@ -102,21 +103,25 @@ function findFlights(inbound){
     .then(responseJsonFlight => {
         findMinPrice(responseJsonFlight);
     })
-
     .catch(err => {
         console.error(err);
     });  
 }
 
+
 function findMinPrice(responseJsonFlight){
-    if(responseJsonFlight.Quotes.length === 0){
-        console.log("No flights found");
+   if(responseJsonFlight.Quotes.length === 0){
+        $('.flightPrice').append(`<li>No flights found</li>`)
     } else {
-        for(let i = 0; i < responseJsonFlight.Quotes.length; i++){
-            console.log(responseJsonFlight.Quotes[0].MinPrice);
-        }
-    }
+        // for(let i = 0; i < responseJsonFlight.Quotes.length; i++){
+        //     console.log(responseJsonFlight.Quotes[0].MinPrice);
+            let price = responseJsonFlight.Quotes[0].MinPrice
+            $('.flightPrice').append(`<li>Flight Price: $${price}</li>`);
+        // }
+    } 
 }
+
+
 
 // creates tomorrow's date variable for outbound flight date
 function createTomorrowsDate(){
