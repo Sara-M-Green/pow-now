@@ -55,8 +55,8 @@ function findWeather(city){
         .then(responseJson => displayResults(responseJson));
 }
 
+//displays weather results to HTML
 function displayResults(responseJson){
-    console.log(responseJson);
     $('#results-list').empty();
     let snowIn = (`${responseJson.data.weather[0].totalSnowfall_cm}`*0.39370079);
     for(let i = 0; i < resortList.length; i++){
@@ -64,25 +64,31 @@ function displayResults(responseJson){
             `<li>
                 <h3>${resortList[i].resort}</h3>
                 <ul>
-                    <li>Total Snowfall: ${snowIn} in</li>
+                    <li>Current Snowfall: ${snowIn} in</li>
                     <li>Flight Price: $</li>
                 </ul>
             </li>`
         );     
     };
-       
-
     $('#results').removeClass('hidden');
 }
 
-function findFlights(){
+//loops through resort list and finds inbound airport code to each resort
+function getFlightData(resortList){
+    for(i = 0; i < resortList.length; i++){
+        let inbound = resortList[i].airport; 
+        findFlights(inbound)
+    }
+}
+
+//makes request for flight info from selected outbound airport to resort
+function findFlights(inbound){
     let outbound = $('#outbound-airport').val();
-    let inbound = 'MMH';
     outboundDate = createTomorrowsDate();
     inboundDate = $('#inbound-date').val();
 
-    let url = `https://rapidapi.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/${outbound}-sky/${inbound}-sky/${outboundDate}?inboundpartialdate=${inboundDate}`
-
+    let url = `https://rapidapi.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/${outbound}-sky/${inbound}-sky/${outboundDate}?inboundpartialdate=${inboundDate}`;
+    
     fetch(url, {
         "method": "GET",
         "headers": {
@@ -93,15 +99,26 @@ function findFlights(){
     .then(response => {
         return response.json();
     })
-    .then(data => {
-        console.log(data);
+    .then(responseJsonFlight => {
+        findMinPrice(responseJsonFlight);
     })
+
     .catch(err => {
         console.error(err);
     });  
 }
 
+function findMinPrice(responseJsonFlight){
+    if(responseJsonFlight.Quotes.length === 0){
+        console.log("No flights found");
+    } else {
+        for(let i = 0; i < responseJsonFlight.Quotes.length; i++){
+            console.log(responseJsonFlight.Quotes[0].MinPrice);
+        }
+    }
+}
 
+// creates tomorrow's date variable for outbound flight date
 function createTomorrowsDate(){
     let date = new Date();
     let year = date.getFullYear();
@@ -117,11 +134,12 @@ function createTomorrowsDate(){
     return tomorrow;
 }
 
+//  submit click listener function
 function watchForm(){
     $('form').submit(event => {
         event.preventDefault();
         getWeatherData(resortList);
-        findFlights();
+        getFlightData(resortList);
     });
 }
 
