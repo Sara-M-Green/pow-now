@@ -37,36 +37,41 @@ const resortList = [
 
 //loops through resort list and finds weather data for each resort
 function getWeatherData(resortList){
-    for (let i = 0; i < resortList.length; i++){
-        findWeather(resortList[i].searchQuery)
-    }
+    const results = resortList.map(resort => {
+        return findWeather(resort.searchQuery)
+    })
+    Promise.all(results)
+    .then(weatherData => {
+        displayResults(weatherData)
+        getFlightData(resortList)
+    })
 }
 
 //makes a request to world wide weather API
 function findWeather(city){
     const url =  `https://api.worldweatheronline.com/premium/v1/ski.ashx?key=${apiKey}&q=${city}&includeLocation=yes&format=json`
-    fetch(url)
+    return fetch(url)
         .then(response => {
             if (response.ok){
                 return response.json();
             }
             throw new Error(response.statusText);
         })
-        .then(responseJson => displayResults(responseJson));
 }
 
 //displays weather results to HTML
-function displayResults(responseJson){
+function displayResults(weatherDataArray){
+    console.log(weatherDataArray)
     $('#results-list').empty();
-    let snowIn = (`${responseJson.data.weather[0].totalSnowfall_cm}`*0.39370079);
-    for(let i = 0; i < resortList.length; i++){
+    for(let i = 0; i < weatherDataArray.length; i++){
+    let snowIn = (`${weatherDataArray[i].data.weather[0].totalSnowfall_cm}`*0.39370079).toFixed(2);    
         $('#results-list').append(
             `<li>
                 <h3>${resortList[i].resort}</h3>
                 <ul>
                     <li>Current Snowfall: ${snowIn} in</li>
                 </ul>
-                <ul class="flightPrice">
+                <ul id="flightPrice-${i}">
                 </ul>
             </li>`
         );     
@@ -77,13 +82,14 @@ function displayResults(responseJson){
 //loops through resort list and finds inbound airport code to each resort
 function getFlightData(resortList){
     for(i = 0; i < resortList.length; i++){
+        let resortName = resortList[i].resort;
         let inbound = resortList[i].airport; 
-        findFlights(inbound)
+        findFlights(inbound, resortName)
     }
 }
 
 //makes request for flight info from selected outbound airport to resort
-function findFlights(inbound){
+function findFlights(inbound, resortName){
     let outbound = $('#outbound-airport').val();
     outboundDate = createTomorrowsDate();
     inboundDate = $('#inbound-date').val();
@@ -102,7 +108,7 @@ function findFlights(inbound){
     })
     .then(responseJsonFlight => {
         console.log(responseJsonFlight)
-        findMinPrice(responseJsonFlight);
+        findMinPrice(responseJsonFlight, resortName);
     })
     .catch(err => {
         console.error(err);
@@ -110,15 +116,13 @@ function findFlights(inbound){
 }
 
 
-function findMinPrice(responseJsonFlight){
+function findMinPrice(responseJsonFlight, resortName){
+    const matchingIndex = resortList.findIndex(resort => resort.resort === resortName)
    if(responseJsonFlight.Quotes.length === 0){
-        $('.flightPrice').append(`<li>No flights found</li>`)
+        $(`#flightPrice-${matchingIndex}`).append(`<li>No flights found</li>`)
     } else {
-        // for(let i = 0; i < responseJsonFlight.Quotes.length; i++){
-        //     console.log(responseJsonFlight.Quotes[0].MinPrice);
             let price = responseJsonFlight.Quotes[0].MinPrice
-            $('.flightPrice').append(`<li>Flight Price: $${price}</li>`);
-        // }
+            $(`#flightPrice-${matchingIndex}`).append(`<li>Flight Price: $${price}</li>`);
     } 
 }
 
@@ -145,7 +149,6 @@ function watchForm(){
     $('form').submit(event => {
         event.preventDefault();
         getWeatherData(resortList);
-        getFlightData(resortList);
     });
 }
 
