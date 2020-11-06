@@ -101,6 +101,7 @@ function findFlights(inbound){
         return response.json();
     })
     .then(responseJsonFlight => {
+        console.log(responseJsonFlight)
         findMinPrice(responseJsonFlight);
     })
     .catch(err => {
