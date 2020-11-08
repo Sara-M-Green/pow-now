@@ -133,8 +133,8 @@ function findMinPrice(responseJsonFlight, resortName){
     if(responseJsonFlight.Quotes.length === 0){
         $(`#flightPrice-${matchingIndex}`).append(`<p>No flights found into ${resortList[matchingIndex].airportName}</p>`)
     } else {
-        const price = responseJsonFlight.Quotes[0].MinPrice
-        const airline = responseJsonFlight.Carriers[0].Name
+        let price = responseJsonFlight.Quotes[0].MinPrice
+        let airline = responseJsonFlight.Carriers[0].Name
         $(`#flightPrice-${matchingIndex}`).append(`<p class='flight-price'>Flight Price: $${price}</p> 
         <p>Into ${resortList[matchingIndex].airportName}</p>
         <p>on ${airline}</p>`)
