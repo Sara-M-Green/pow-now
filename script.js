@@ -5,31 +5,37 @@ const apiKey = 'cadbd16055d546e9afd42652200211';
 const resortList = [
     {
         resort: 'Mammoth Mountain',
+        cityState: 'Mammoth Lakes, CA',
         searchQuery: 'mammoth+lakes',
         airport: 'MMH'
     },
     {
         resort: 'Telluride',
+        cityState: 'Telluride, CO',
         searchQuery: 'telluride',
-        airport: 'MJT'
+        airport: 'MTJ'
     },
     {
-        resort: 'Squaw Valley/Alipine Meadows',
+        resort: 'Squaw Valley/Alpine Meadows',
+        cityState: 'Olympic Valley, CA',
         searchQuery: 'olympic+valley',
         airport: 'RNO'
     },
     {
         resort: 'Big Sky',
+        cityState: 'Big Sky, MT',
         searchQuery: 'big+sky',
         airport: 'BZN'
     },
     {
         resort: 'Snowbird',
+        cityState: 'Salt Lake City, UT',
         searchQuery: 'salt+lake+city',
         airport: 'SLC'
     },
     {
         resort: 'Sun Valley',
+        cityState: 'Sun Valley, ID',
         searchQuery: 'sun+valley',
         airport: 'SUN'
     }
@@ -68,6 +74,7 @@ function displayResults(weatherDataArray){
         $('#results-list').append(
             `<li>
                 <h3>${resortList[i].resort}</h3>
+                <p>${resortList[i].cityState}</p>
                 <ul>
                     <li>Current Snowfall: ${snowIn} in</li>
                 </ul>
@@ -90,6 +97,7 @@ function getFlightData(resortList){
 
 //makes request for flight info from selected outbound airport to resort
 function findFlights(inbound, resortName){
+
     let outbound = $('#outbound-airport').val();
     outboundDate = createTomorrowsDate();
     inboundDate = $('#inbound-date').val();
@@ -119,10 +127,10 @@ function findFlights(inbound, resortName){
 function findMinPrice(responseJsonFlight, resortName){
     const matchingIndex = resortList.findIndex(resort => resort.resort === resortName)
    if(responseJsonFlight.Quotes.length === 0){
-        $(`#flightPrice-${matchingIndex}`).append(`<li>No flights found</li>`)
+        $(`#flightPrice-${matchingIndex}`).append(`<li>No flights found into ${resortList[matchingIndex].airport}</li>`)
     } else {
             let price = responseJsonFlight.Quotes[0].MinPrice
-            $(`#flightPrice-${matchingIndex}`).append(`<li>Flight Price: $${price}</li>`);
+            $(`#flightPrice-${matchingIndex}`).append(`<li>Flight Price: $${price} into ${resortList[matchingIndex].airport}</li>`);
     } 
 }
 
@@ -144,6 +152,12 @@ function createTomorrowsDate(){
     return tomorrow;
 }
 
+// sets the date input's min value
+function minDateAttr(){
+    let minDate = createTomorrowsDate()
+    $('#inbound-date').attr("min", minDate)
+}
+
 //  submit click listener function
 function watchForm(){
     $('form').submit(event => {
@@ -153,3 +167,4 @@ function watchForm(){
 }
 
 $(watchForm);
+$(minDateAttr);
