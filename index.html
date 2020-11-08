@@ -5,16 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pow Now</title>
 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Yanone+Kaffeesatz:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
     <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
     <div class="wrapper">
-        <h1>Pow Now</h1>
+        <h1>POW NOW</h1>
         <h2>Find Cheap Flights to Fresh Snow</h2>
-        <h3>Your flight leaves tomorrow!</h3> 
-        <h3>Select your nearest outbound airport and return date to see the current snowfall at some of the US's best ski resorts, and how much it will cost to get there.</h3>
+        <h3 id="flight-tomorrow">Your flight leaves tomorrow!</h3> 
+        <h3 id="instructions">Select your nearest outbound airport and return date to see the current snowfall at some of the US's best ski resorts, and how much it will cost to get there.</h3>
         
+        <div id="form">
         <form>
             <label for="outbound-airport">Outbound Airport: </label>
             <select name="outbound-airport" id="outbound-airport" required>
@@ -28,9 +31,10 @@
 
             <label for="return-date">Return Date: </label>
             <input type="date" name="return-date" id="inbound-date" min="" required>
+
             <input type="submit">
         </form>
-        
+        </div>
 
         <section id="results" class="hidden">
             <h2>Results:</h2>

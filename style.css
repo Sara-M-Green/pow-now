@@ -2,10 +2,90 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: font-family: 'Roboto', sans-serif;
+    background-image: url('images/ski-pow.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 85px;
+    text-shadow: 4px 4px 6px #FFF, 0 0 25px #FFF;
+    margin:  0px auto;
+    text-align: center;
+    padding-bottom: 0;
+}
+
+h2, h3 {
+    text-align: center;
+    text-shadow: 4px 4px 6px #FFF, 0 0 10px #FFF;
+    font-size: 24px;
+    margin-top: 0;
+}
+
+form label, form input, form submit {
+    display: block;
+}
+
+input[type=date]{
+    display: block;
+}
+
+input[type=submit]{
+    display: block;
+    margin: 7px auto;
+    width: 145px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: #EEEFFF;
+    border: 2px solid black;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+
+}
+
+input[type=submit]:active {
+    outline: none; 
+}
+
+
+input[type=submit]:hover {
+    background-color: #f4f5ff;
+}
+
+label {
+    font-family: font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-shadow: 4px 4px 6px #FFF, 0 0 10px #FFF;
+    font-weight: bold;
+    margin: 5px;
+}
+
+
 .wrapper {
-    margin: 15px;
+    margin: 50px;
 }
 
 .hidden {
     display: none;
+}
+
+#flight-tomorrow {
+    font-size: 36px;
+}
+
+#instructions {
+    max-width: 800px;
+    margin: 15px auto;
+}
+
+#form {
+    display: block;
+    text-align: center;
+}
+
+#inbound-date {
+    margin: 0 auto;
 }
