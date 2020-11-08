@@ -4,20 +4,6 @@ const apiKey = 'cadbd16055d546e9afd42652200211';
 //list of resorts to search snowfall data
 const resortList = [
     {
-        resort: 'Mammoth Mountain',
-        cityState: 'Mammoth Lakes, CA',
-        searchQuery: 'mammoth+lakes',
-        airport: 'MMH',
-        airportName: 'Mammoth Yosemite Airport'
-    },
-    {
-        resort: 'Telluride',
-        cityState: 'Telluride, CO',
-        searchQuery: 'telluride',
-        airport: 'MTJ',
-        airportName: 'Montrose Regional Airport'
-    },
-    {
         resort: 'Squaw Valley/Alpine Meadows',
         cityState: 'Olympic Valley, CA',
         searchQuery: 'olympic+valley',
@@ -25,18 +11,32 @@ const resortList = [
         airportName: 'Reno-Tahoe International Airport'
     },
     {
-        resort: 'Big Sky Resort',
-        cityState: 'Big Sky, MT',
-        searchQuery: 'big+sky',
-        airport: 'BZN',
-        airportName: 'Bozeman Yellowstone International Airport'
-    },
-    {
         resort: 'Snowbird',
         cityState: 'Salt Lake City, UT',
         searchQuery: 'salt+lake+city',
         airport: 'SLC',
         airportName: 'Salt Lake City International Airport'
+    },
+    {
+        resort: 'Mammoth Mountain',
+        cityState: 'Mammoth Lakes, CA',
+        searchQuery: 'mammoth+lakes',
+        airport: 'MMH',
+        airportName: 'Mammoth Yosemite Airport'
+    },
+    {
+        resort: 'Telluride Ski Resort',
+        cityState: 'Telluride, CO',
+        searchQuery: 'telluride',
+        airport: 'MTJ',
+        airportName: 'Montrose Regional Airport'
+    },
+    {
+        resort: 'Big Sky Resort',
+        cityState: 'Big Sky, MT',
+        searchQuery: 'big+sky',
+        airport: 'BZN',
+        airportName: 'Bozeman Yellowstone International Airport'
     },
     {
         resort: 'Sun Valley',
