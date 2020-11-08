@@ -42,6 +42,7 @@ p {
     margin: 0;
     font-size: 18px;
     text-shadow: 4px 4px 6px #FFF, 0 0 25px #FFF;
+    font-weight: bold;
 }
 
 input, select {
@@ -100,6 +101,17 @@ ul li {
 
 .resort-result {
     margin-bottom: 30px;
+}
+
+.resortName {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    font-size: 40px;
+    margin-top: 55px;
+    line-height: 90%;
+}
+
+.snowfall {
+    margin-top: 10px;
 }
 
 #flight-tomorrow {
