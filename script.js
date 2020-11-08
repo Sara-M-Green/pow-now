@@ -72,18 +72,20 @@ function displayResults(weatherDataArray){
     for(let i = 0; i < weatherDataArray.length; i++){
     let snowIn = (`${weatherDataArray[i].data.weather[0].totalSnowfall_cm}`*0.39370079).toFixed(2);    
         $('#results-list').append(
-            `<li>
+            `<div class="resort-result">
                 <h3>${resortList[i].resort}</h3>
-                <p>${resortList[i].cityState}</p>
-                <ul>
-                    <li>Current Snowfall: ${snowIn} in</li>
-                </ul>
-                <ul id="flightPrice-${i}">
-                </ul>
-            </li>`
+                <h4>${resortList[i].cityState}</h4>
+                
+                    <p>Current Snowfall: <strong>${snowIn} in</strong></p>
+                
+                <div id="flightPrice-${i}">
+                </div>
+            </div>`
         );     
     };
     $('#results').removeClass('hidden');
+    $('#home-screen-copy').addClass('hidden');
+    $('#submit').attr("value", "Search Again")
 }
 
 //loops through resort list and finds inbound airport code to each resort
@@ -127,10 +129,10 @@ function findFlights(inbound, resortName){
 function findMinPrice(responseJsonFlight, resortName){
     const matchingIndex = resortList.findIndex(resort => resort.resort === resortName)
    if(responseJsonFlight.Quotes.length === 0){
-        $(`#flightPrice-${matchingIndex}`).append(`<li>No flights found into ${resortList[matchingIndex].airport}</li>`)
+        $(`#flightPrice-${matchingIndex}`).append(`<p>No flights found into ${resortList[matchingIndex].airport}</p>`)
     } else {
             let price = responseJsonFlight.Quotes[0].MinPrice
-            $(`#flightPrice-${matchingIndex}`).append(`<li>Flight Price: $${price} into ${resortList[matchingIndex].airport}</li>`);
+            $(`#flightPrice-${matchingIndex}`).append(`<p>Flight Price: $${price} into ${resortList[matchingIndex].airport}</p>`);
     } 
 }
 

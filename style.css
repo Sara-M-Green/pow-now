@@ -4,9 +4,15 @@
 
 body {
     font-family: font-family: 'Roboto', sans-serif;
-    background-image: url('images/ski-pow.jpg');
-    background-size: 100%;
-    background-repeat: no-repeat;
+    background: url('images/ski-pow.jpg') no-repeat left fixed;
+    background-size: cover;
+;
+
+
+}
+
+form {
+    margin: 15px auto;
 }
 
 h1 {
@@ -16,21 +22,30 @@ h1 {
     margin:  0px auto;
     text-align: center;
     padding-bottom: 0;
+    line-height: 80%;
 }
 
 h2, h3 {
     text-align: center;
     text-shadow: 4px 4px 6px #FFF, 0 0 10px #FFF;
     font-size: 24px;
+    margin: 0;
+}
+
+h4 {
     margin-top: 0;
+    margin-bottom: 5px;
+    text-shadow: 4px 4px 6px #FFF, 0 0 25px #FFF;
 }
 
-form label, form input, form submit {
-    display: block;
+p {
+    margin: 0;
+    font-size: 18px;
+    text-shadow: 4px 4px 6px #FFF, 0 0 25px #FFF;
 }
 
-input[type=date]{
-    display: block;
+input, select {
+    box-shadow: 4px 4px 6px #FFF, 0 0 10px #FFF;
 }
 
 input[type=submit]{
@@ -42,7 +57,8 @@ input[type=submit]{
     background-color: #EEEFFF;
     border: 2px solid black;
     font-family: 'Yanone Kaffeesatz', sans-serif;
-
+    font-size: 24px;
+    outline: none;
 }
 
 input[type=submit]:active {
@@ -61,6 +77,12 @@ label {
     text-shadow: 4px 4px 6px #FFF, 0 0 10px #FFF;
     font-weight: bold;
     margin: 5px;
+    display: block;
+}
+
+ul li {
+    list-style-position: inside;
+    list-style-type: none;
 }
 
 
@@ -72,8 +94,17 @@ label {
     display: none;
 }
 
+.inline {
+    display: inline;
+}
+
+.resort-result {
+    margin-bottom: 30px;
+}
+
 #flight-tomorrow {
     font-size: 36px;
+    margin: 15px auto;
 }
 
 #instructions {
@@ -88,4 +119,18 @@ label {
 
 #inbound-date {
     margin: 0 auto;
+}
+
+#results {
+    text-align: center;
+}
+
+@media all and (min-width:800px){
+    body {
+        background: url('images/ski-pow.jpg') no-repeat fixed;
+        background-size: cover;
+    }
+    /* label, option, select, input {
+        display: inline;
+    } */
 }

@@ -14,9 +14,10 @@
     <div class="wrapper">
         <h1>POW NOW</h1>
         <h2>Find Cheap Flights to Fresh Snow</h2>
-        <h3 id="flight-tomorrow">Your flight leaves tomorrow!</h3> 
-        <h3 id="instructions">Select your nearest outbound airport and return date to see the current snowfall at some of the US's best ski resorts, and how much it will cost to get there.</h3>
-        
+        <div id="home-screen-copy">
+            <h3 id="flight-tomorrow">Your flight leaves tomorrow!</h3> 
+            <h3 id="instructions">Select your nearest outbound airport and return date to see the current snowfall at some of the US's best ski resorts, and how much it will cost to get there.</h3>
+        </div>
         <div id="form">
         <form>
             <label for="outbound-airport">Outbound Airport: </label>
@@ -32,14 +33,13 @@
             <label for="return-date">Return Date: </label>
             <input type="date" name="return-date" id="inbound-date" min="" required>
 
-            <input type="submit">
+            <input type="submit" id="submit" value="Submit">
         </form>
         </div>
 
         <section id="results" class="hidden">
-            <h2>Results:</h2>
-            <ul id="results-list">
-            </ul>
+            <div id="results-list">
+            </div>
         </section>
     </div>
 
