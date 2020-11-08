@@ -1,3 +1,4 @@
+/* General */
 * {
     box-sizing: border-box;
 }
@@ -6,10 +7,9 @@ body {
     font-family: font-family: 'Roboto', sans-serif;
     background: url('images/ski-pow.jpg') no-repeat left fixed;
     background-size: cover;
-;
-
-
 }
+
+/* Elements */
 
 form {
     margin: 15px auto;
@@ -66,7 +66,6 @@ input[type=submit]:active {
     outline: none; 
 }
 
-
 input[type=submit]:hover {
     background-color: #f4f5ff;
 }
@@ -86,6 +85,7 @@ ul li {
     list-style-type: none;
 }
 
+/* Classes */
 
 .wrapper {
     margin: 50px;
@@ -114,6 +114,13 @@ ul li {
     margin-top: 10px;
 }
 
+.flight-price {
+    margin-top: 10px;
+}
+
+/* IDs */
+
+
 #flight-tomorrow {
     font-size: 36px;
     margin: 15px auto;
@@ -137,12 +144,11 @@ ul li {
     text-align: center;
 }
 
+/* Responsive CSS */
+
 @media all and (min-width:800px){
     body {
         background: url('images/ski-pow.jpg') no-repeat fixed;
         background-size: cover;
     }
-    /* label, option, select, input {
-        display: inline;
-    } */
 }
