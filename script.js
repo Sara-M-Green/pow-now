@@ -58,7 +58,7 @@ function getWeatherData(resortList){
 
 //makes a request to world wide weather API
 function findWeather(city){
-    const apiKey = 'cadbd16055d546e9afd42652200211'
+    const apiKey = '5c04d972620e423088032505212303'
     const url =  `https://api.worldweatheronline.com/premium/v1/ski.ashx?key=${apiKey}&q=${city}&includeLocation=yes&format=json`
     return fetch(url)
     .then(response => {
