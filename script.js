@@ -52,13 +52,13 @@ function getWeatherData(resortList){
     Promise.all(results)
     .then(weatherData => {
         displayResults(weatherData)
-        getFlightData(resortList)
+        //getFlightData(resortList)
     })
 }
 
 //makes a request to world wide weather API
 function findWeather(city){
-    const apiKey = '5c04d972620e423088032505212303'
+    const apiKey = '79a266d0bd164227a4525758222302'
     const url =  `https://api.worldweatheronline.com/premium/v1/ski.ashx?key=${apiKey}&q=${city}&includeLocation=yes&format=json`
     return fetch(url)
     .then(response => {
@@ -86,9 +86,11 @@ function displayResults(weatherDataArray){
             </div>`
         )    
     }
+
     $('#results').removeClass('hidden')
+    $('#form-home').removeClass('hidden')
     $('#home-screen-copy').addClass('hidden')
-    $('#submit').attr('value', 'Search Again')
+    $('#form').addClass('hidden')
 }
 
 //loops through resort list and finds inbound airport code to each resort
@@ -112,7 +114,7 @@ function findFlights(inbound, resortName){
     fetch(url, {
         'method': 'GET',
         'headers': {
-            'x-rapidapi-key': '36f9ae898amsh1413f301961a480p18ed20jsn9e5d4d694fec',
+            'x-rapidapi-key': 'debf945071msh4077f5357cd257bp198bb8jsnbfa7318dbd80',
             'x-rapidapi-host': 'skyscanner-skyscanner-flight-search-v1.p.rapidapi.com'
         }
     })
@@ -171,5 +173,21 @@ function watchForm(){
     })
 }
 
+function goHome(){
+    $('#form-home').submit(event =>{
+        event.preventDefault()
+        console.log("go home")
+        //$('#results').removeClass('hidden')
+        $("#results-list").attr("class", "hidden");
+        $("#form-home").attr("class", "hidden");
+        $("#home-screen-copy").attr("hidden");
+        $("#form").attr("class", "hidden");
+        //$('#results').addClass('hidden')
+        //$('#form-home').addClass('hidden')
+        //$('#home-screen-copy').removeClass('hidden')
+    })
+}
+
+$(goHome)
 $(watchForm)
 $(minDateAttr)

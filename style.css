@@ -4,7 +4,7 @@
 }
 
 body {
-    font-family: font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background: url('images/ski-pow.jpg') no-repeat left fixed;
     background-size: cover;
 }
@@ -71,7 +71,7 @@ input[type=submit]:hover {
 }
 
 label {
-    font-family: font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 20px;
     font-weight: bold;
     text-shadow: 4px 4px 6px #FFF, 0 0 10px #FFF;
@@ -132,7 +132,6 @@ ul li {
 }
 
 #form {
-    display: block;
     text-align: center;
 }
 
