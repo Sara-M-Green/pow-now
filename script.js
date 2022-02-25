@@ -86,11 +86,14 @@ function displayResults(weatherDataArray){
             </div>`
         )    
     }
+    toggleClasses();
+}
 
-    $('#results').removeClass('hidden')
-    $('#form-home').removeClass('hidden')
-    $('#home-screen-copy').addClass('hidden')
-    $('#form').addClass('hidden')
+function toggleClasses(){
+    $('#results').toggleClass('hidden')
+    $('#form-home').toggleClass('hidden')
+    $('#home-screen-copy').toggleClass('hidden')
+    $('#form').toggleClass('hidden')
 }
 
 //loops through resort list and finds inbound airport code to each resort
@@ -177,17 +180,9 @@ function goHome(){
     $('#form-home').submit(event =>{
         event.preventDefault()
         console.log("go home")
-        //$('#results').removeClass('hidden')
-        $("#results-list").attr("class", "hidden");
-        $("#form-home").attr("class", "hidden");
-        $("#home-screen-copy").attr("hidden");
-        $("#form").attr("class", "hidden");
-        //$('#results').addClass('hidden')
-        //$('#form-home').addClass('hidden')
-        //$('#home-screen-copy').removeClass('hidden')
+        toggleClasses();
     })
 }
 
-$(goHome)
 $(watchForm)
 $(minDateAttr)
